@@ -1,7 +1,17 @@
 <?php
+// memanggil file function
 require 'functions.php';
 
+
+
+// memanggil finction query.
 $wakifs = query("SELECT * FROM wakif");
+
+// jika cari di klik
+if( isset($_POST["cari"]) ) {
+    $wakifs = cari($_POST["keyword"]);
+}
+
 ?>
 
 
@@ -16,6 +26,17 @@ $wakifs = query("SELECT * FROM wakif");
     
         <h1>Daftar Wakif</h1>
 
+        <a href="tambah.php">Tambah Data Wakif</a>
+        <br>
+        <br>
+
+<form action="" method="post">
+
+    <input type="text" name="keyword" id="keyword" size="40" autofocus placeholder="Masukan keyword pencarian.." autocomplate="off">
+    <button type="submit" name="cari">Cari</button>
+
+</form>
+<br><br>
         <table border="1" cellpadding="10" cellspacing="0">
 
             <tr>
@@ -34,8 +55,8 @@ $wakifs = query("SELECT * FROM wakif");
             <tr>
                     <td><?= $i ?></td>
                     <td>
-                        <a href="">Ubah</a> | 
-                        <a href="">Hapus</a>
+                        <a href="ubah.php?id=<?= $row["id"]; ?>">Ubah</a> | 
+                        <a href="hapus?id=<?= $row["id"]; ?>" onclick="return confirm('Yakin');">Hapus</a>
                     </td>
                     <td><img src="img/<?= $row["gambar"]; ?>" width="50"></td>
                     <td><?= $row["idwakif"]?></td>
